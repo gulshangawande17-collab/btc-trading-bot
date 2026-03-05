@@ -57,12 +57,12 @@ current_price = btc_data['Close'].iloc[-1]
 current_support = btc_data['Support_6h'].iloc[-1]
 current_resistance = btc_data['Resistance_6h'].iloc[-1]
 
-if prediction == 1: # BUY setup
-    sl = current_support * 0.995 # SL is 0.5% below the 6h floor
+if prediction == 1: 
+    sl = current_support * 0.995 
     tp = current_resistance if current_resistance > current_price else current_price * 1.015
     decision = "BUY"
-else: # SELL setup
-    sl = current_resistance * 1.005 # SL is 0.5% above the 6h ceiling
+else: 
+    sl = current_resistance * 1.005 
     tp = current_support if current_support < current_price else current_price * 0.985
     decision = "SELL"
 
@@ -76,7 +76,6 @@ print("=========================================")
 # --- NEW: GENERATE AND SAVE THE CHART PICTURE ---
 print("5. Drawing the Analysis Chart...")
 plt.figure(figsize=(12, 6))
-# Plot only the last 50 candles (approx 12 hours) so the chart isn't too squished
 plot_data = btc_data.iloc[-50:] 
 
 plt.plot(plot_data.index, plot_data['Close'], label='BTC Price', color='black', linewidth=2)
@@ -91,7 +90,6 @@ plt.ylabel("Price (USD)")
 plt.legend()
 plt.grid(True, alpha=0.3)
 
-# Save the picture to the server
 plt.savefig('chart.png', bbox_inches='tight')
 print("Chart successfully saved as chart.png!")
 
